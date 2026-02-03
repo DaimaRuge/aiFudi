@@ -22,22 +22,40 @@
 ```
 aiFudi/
 ├── src/aifudi/
+│   ├── __init__.py
 │   ├── agents/
 │   │   └── openclaw.py          # OpenClaw 中间件 (RK3588)
 │   ├── core/
-│   │   ├── audio/
-│   │   │   ├── kws_pipeline.py   # 合成 KWS 训练管线
-│   │   │   └── preprocessor.py   # AEC/VAD/波束成形
-│   │   └── llm/
-│   │       └── router.py         # 云端+端侧智能分发
+│   │   ├── __init__.py
+│   │   ├── config.py            # 配置文件管理
+│   │   ├── pipeline.py          # 🌟 完整语音交互流水线
+│   │   ├── llm/
+│   │   │   ├── __init__.py
+│   │   │   ├── engine.py        # 🌟 LLM 引擎 (DeepSeek/Qwen/豆包)
+│   │   │   └── router.py        # LLM 路由
+│   │   ├── asr/
+│   │   │   └── engine.py        # 🌟 ASR 引擎 (Sherpa/Whisper)
+│   │   ├── tts/
+│   │   │   └── engine.py        # 🌟 TTS 引擎 (CosyVoice/Edge-TTS)
+│   │   └── audio/
+│   │       ├── __init__.py
+│   │       ├── preprocessor.py   # AEC/VAD/波束成形
+│   │       ├── io.py             # 音频 I/O (ALSA)
+│   │       ├── kws_pipeline.py   # KWS Pipeline
+│   │       └── kws_trainer.py    # 🌟 KWS 完整训练管线
 │   └── gateway/
 │       └── super_gateway.py      # Agent Orchestrator
 ├── docs/
-│   ├── PRD_v1.0.md             # 产品需求文档
-│   ├── ARCHITECTURE_v1.0.md    # 架构设计文档
-│   └── OPENCLAW_BOX_v1.0.md   # RK3588 硬件设计
-└── examples/
-    └── demo.py                  # 演示脚本
+│   ├── PRD_v1.0.md
+│   ├── ARCHITECTURE_v1.0.md
+│   ├── OPENCLAW_BOX_v1.0.md
+│   └── FILE_STRUCTURE.md
+├── examples/
+│   └── demo.py
+├── tests/
+│   └── README.md
+├── requirements.txt
+└── README.md
 ```
 
 ## 🔥 核心组件
