@@ -1,0 +1,49 @@
+/* Pages Styles */
+/*页面样式*/
+
+.home-page,
+.document-page,
+.search-page,
+.category-page,
+.settings-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.document-page .ant-table {
+  background: #fff;
+  border-radius: 8px;
+}
+
+.search-result-card {
+  margin-bottom: 12px;
+}
+
+.category-page .ant-tree {
+  background: none;
+}
+
+.settings-page h1 {
+  margin-bottom: 24px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+  }
+}
