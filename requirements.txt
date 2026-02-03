@@ -1,0 +1,23 @@
+# AI Fudi - 依赖包
+
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.5.3
+python-multipart>=0.0.6
+asyncio>=3.4.3
+
+# 音频处理
+numpy>=1.26.3
+scipy>=1.12.0
+
+# AI/ML (可选)
+# torch>=2.1.0
+# tensorflow>=2.15.0
+
+# 工具
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+
+# 测试
+pytest>=7.4.4
+httpx>=0.26.0

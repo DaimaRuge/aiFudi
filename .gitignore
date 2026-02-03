@@ -1,0 +1,34 @@
+# AI Fudi - .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+env/
+.venv
+
+# 数据
+data/
+models/
+*.pth
+*.onnx
+*.tflite
+
+# 音频
+*.wav
+*.mp3
+*.flac
+
+# IDE
+.vscode/
+.idea/
+
+# 临时
+*.tmp
+*.log
+
+# 环境
+.env
+.env.local
