@@ -90,3 +90,19 @@ skyone-shuge/
 ---
 
 **更新时间**: 2026-02-03 22:xx
+
+### v3.0.1 (2026-03-04)
+- [x] 更新核心配置与数据库连接 (Async SQLAlchemy 2.0)
+- [x] 实现 v3.0.1 数据模型 (Document, Folder, Tag, Knowledge Graph)
+- [x] 创建 Pydantic Schemas (DTOs)
+- [x] 实现 Agent 基础架构 (BaseAgent, AgentRegistry)
+- [x] 实现文档处理 Agent (DocumentProcessor)
+- [x] 验证项目结构与依赖
+
+### v3.0.2 (2026-03-07)
+- [x] 检查项目已实现功能 (core, ml, agents, models 等模块)
+- [x] 创建 PRD v3.0.2 文档
+- [x] 创建架构文档 v3.0.2
+- [x] 更新迭代日志
+- [x] 更新今日记忆文件
+
