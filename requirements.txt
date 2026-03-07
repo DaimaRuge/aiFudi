@@ -1,23 +1,44 @@
-# AI Fudi - 依赖包
+# AI Fudi - Requirements
 
-fastapi>=0.109.0
-uvicorn>=0.27.0
-pydantic>=2.5.3
-python-multipart>=0.0.6
-asyncio>=3.4.3
+## Core Dependencies
+fastapi>=0.104.0
+uvicorn>=0.24.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
 
-# 音频处理
-numpy>=1.26.3
-scipy>=1.12.0
+## Audio Processing
+pyaudio>=0.2.11
+webrtcvad>=2.0.10
+numpy>=1.24.0
+librosa>=0.10.0
 
-# AI/ML (可选)
-# torch>=2.1.0
-# tensorflow>=2.15.0
+## ML/AI
+# onnxruntime>=1.16.0  # For local models
+# openvino>=2023.2.0   # For Intel/NPU acceleration
 
-# 工具
+## HTTP/WebSocket
+aiohttp>=3.9.0
+websockets>=12.0
+httpx>=0.25.0
+
+## Memory/Database
+# qdrant-client>=1.6.0  # Vector database
+redis>=5.0.0
+
+## Utilities
 python-dotenv>=1.0.0
-pyyaml>=6.0.1
+structlog>=23.2.0
+rich>=13.7.0
+click>=8.1.0
 
-# 测试
-pytest>=7.4.4
-httpx>=0.26.0
+## Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+
+## Development
+black>=23.11.0
+ruff>=0.1.6
+mypy>=1.7.0
+pre-commit>=3.6.0
