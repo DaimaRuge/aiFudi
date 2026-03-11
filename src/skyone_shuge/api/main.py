@@ -5,7 +5,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from .routers import documents, categories, search, health, auth
+from .routers import (
+    documents, categories, search, health, auth,
+    advanced_search, batch, rag, tasks, analytics, models
+)
 from ..core.config import settings
 from ..core.database import init_db, engine
 from ..models import Base
@@ -46,7 +49,13 @@ app.include_router(health.router, prefix=settings.API_V1_PREFIX)
 app.include_router(documents.router, prefix=settings.API_V1_PREFIX)
 app.include_router(categories.router, prefix=settings.API_V1_PREFIX)
 app.include_router(search.router, prefix=settings.API_V1_PREFIX)
+app.include_router(advanced_search.router, prefix=settings.API_V1_PREFIX)
 app.include_router(auth.router, prefix=settings.API_V1_PREFIX)
+app.include_router(batch.router, prefix=settings.API_V1_PREFIX)
+app.include_router(rag.router, prefix=settings.API_V1_PREFIX)
+app.include_router(tasks.router, prefix=settings.API_V1_PREFIX)
+app.include_router(analytics.router, prefix=settings.API_V1_PREFIX)
+app.include_router(models.router, prefix=settings.API_V1_PREFIX)
 
 
 # 根路径
