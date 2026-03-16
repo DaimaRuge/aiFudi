@@ -1,39 +1,191 @@
-# 天一阁 - MVP v3.0.6 产品需求文档 (PRD)
+# 天一阁 PRD v3.0.6
 
-## 1. 迭代目标
-本次迭代 (v3.0.6) 主要目标是完善 API 层实现（RESTful endpoints）并提供文档上传、异步任务处理队列（Celery/RQ）的数据模型，以及 RAG、ML、搜索分析等高阶功能的路由。使之前已实现的工作流和算法能够通过统一的 HTTP 接口暴露给前端和外部系统调用。
+**版本**: v3.0.6  
+**日期**: 2026-03-16  
+**阶段**: MVP + API 服务层完善
 
-## 2. 核心功能点
-### 2.1 API 路由完善
-- **RAG问答接口 (`/api/v1/rag`)**: 暴露已实现的 RAGEngine，支持多轮交互和引用溯源。
-- **搜索增强接口 (`/api/v1/search` & `/api/v1/advanced_search`)**: 支持元数据过滤、混合搜索和基于大语言模型的重排。
-- **机器学习模型状态监控 (`/api/v1/models`)**: 支持随时查询底层大模型（如Ark/OpenAI）和向量模型的健康度、参数配置。
-- **批量操作接口 (`/api/v1/batch`)**: 对文档集合进行批量重排序、打标、分类等操作。
+---
 
-### 2.2 异步任务体系（设计层面）
-- 设计 `schemas/tasks.py` 用于标准化异步任务的状态机（PENDING, RUNNING, COMPLETED, FAILED）。
-- 提供 `/api/v1/tasks` 接口，方便前端对长耗时任务（如长文档切分、全量重新向量化）进行进度查询和管理。
+## 📋 版本历史
 
-### 2.3 数据分析大盘接口
-- 设计 `/api/v1/analytics/overview` 接口提供全维度数据指标：文档索引数、分类统计、存储用量、模型调用次数等，以支持前端构建 Dashboard。
+| 版本 | 日期 | 说明 |
+|------|------|------|
+| v3.0.6 | 2026-03-16 | API 服务层完整实现：10 个路由模块 + 扩展 Schemas |
+| v3.0.5 | 2026-03-10 | RAG 引擎与高级搜索实现（混合搜索、重排序） |
+| v3.0.4 | 2026-03-08 | 规划向量存储接口与数据流 |
+| v3.0.3 | 2026-03-07 | 实现进展更新：Agent 框架、文档解析器、工作流引擎等 |
+| v3.0.2 | 2026-02-25 | 简化 MVP，聚焦 SRT + 知识库，添加 MCP 集成计划 |
 
-## 3. 技术设计方案
-### 3.1 Pydantic Schemas 数据模型设计
-统一的入参出参模型放置于 `schemas/` 下，实现：
-- `rag.py`: RAGQueryRequest、RAGAnswer、RAGSourceDocument 等。
-- `tasks.py`: TaskCreateRequest、TaskResponse 等。
-- `ml.py`: EmbeddingModelInfo、LLMCompletionRequest 等。
-- `analytics.py`: DailyStats、AnalyticsOverviewResponse 等。
+---
 
-### 3.2 FastAPI 路由挂载
-更新 `api/main.py` 的注册中心，使用 `API_V1_PREFIX` 统一管理版本前缀，并成功挂载：
-- `rag.router`
-- `tasks.router`
-- `analytics.router`
-- `models.router`
-- `advanced_search.router`
-- `batch.router`
+## 📅 迭代记录 (v3.0.6)
 
-## 4. 下一步计划
-- **v3.0.7**: 引入 Celery 和 Redis 实现真正的异步后台任务运行逻辑，对接 `DocumentProcessor` 和 `TaskRegistry`。
-- **v3.1.0**: 前后端联调，打通端到端的交互链路。
+### 本次迭代完成目标
+- ✅ **API 层完整实现**：构建基于 FastAPI 的 RESTful 接口，新增 6 个路由模块
+- ✅ **路由扩展**：`rag.py`, `tasks.py`, `analytics.py`, `models.py`, `advanced_search.py`, `batch.py`
+- ✅ **Schema 扩展**：新增 `rag.py`, `tasks.py`, `analytics.py`, `ml.py` 数据模型
+- ✅ **配置增强**：`core/config.py` 扩展任务队列、分析统计等相关配置
+- ✅ **API 注册**：`main.py` 和 `routers/__init__.py` 完整注册所有 10 个路由模块
+
+---
+
+## 🎯 一、API 服务层架构
+
+### 1.1 完整路由模块清单 (10 个)
+
+| 路由模块 | 功能 | 端点前缀 |
+|---------|------|---------|
+| `health` | 健康检查 | `/health` |
+| `auth` | 用户认证 (JWT) | `/auth` |
+| `documents` | 文档 CRUD | `/documents` |
+| `categories` | 分类管理 | `/categories` |
+| `search` | 基础搜索 | `/search` |
+| `advanced_search` | 高级搜索 (混合/向量) | `/search/advanced` |
+| `batch` | 批量操作 | `/batch` |
+| `rag` | RAG 问答 | `/rag` |
+| `tasks` | 异步任务管理 | `/tasks` |
+| `analytics` | 数据分析统计 | `/analytics` |
+| `models` | ML 模型管理 | `/models` |
+
+### 1.2 RAG API 端点
+
+**`POST /api/v1/rag/query`**
+- 功能：RAG 问答查询
+- 请求体：`RAGQueryRequest` (query, top_k, similarity_threshold, stream)
+- 响应：`RAGResponse` (answer, sources, confidence)
+
+**`POST /api/v1/rag/feedback`**
+- 功能：提交问答反馈
+- 请求体：`RAGFeedbackRequest` (query_id, helpful, comment)
+
+**`GET /api/v1/rag/documents/{id}/chunks`**
+- 功能：获取文档切分块列表
+- 响应：`DocumentChunksResponse`
+
+### 1.3 任务管理 API 端点
+
+**`POST /api/v1/tasks`**
+- 功能：创建异步任务
+- 支持任务类型：文档索引、重新索引、批量索引、分类同步、Embedding 更新
+
+**`GET /api/v1/tasks/{task_id}`**
+- 功能：查询任务状态和进度
+
+**`GET /api/v1/tasks`**
+- 功能：任务列表查询
+- 支持分页和状态过滤
+
+### 1.4 数据分析 API 端点
+
+**`GET /api/v1/analytics/overview`**
+- 功能：数据分析概览
+- 指标：日活统计、分类统计、文件类型分布、搜索统计、RAG 统计、存储统计
+
+**`GET /api/v1/analytics/trends`**
+- 功能：趋势分析
+- 时间范围：day/week/month/quarter/year
+
+---
+
+## 🏗️ 二、数据结构扩展 (Schemas)
+
+### 2.1 RAG 数据模型 (`schemas/rag.py`)
+
+```python
+class RAGQueryRequest(BaseModel):
+    query: str                    # 用户查询
+    top_k: int = 5               # 返回结果数
+    similarity_threshold: float  # 相似度阈值
+    include_raw_chunks: bool     # 是否包含原始块
+    stream: bool                 # 是否流式输出
+
+class RAGSourceDocument(BaseModel):
+    document_id: str
+    title: Optional[str]
+    file_name: str
+    chunk_id: str
+    chunk_index: int
+    content: str
+    similarity_score: float
+
+class RAGAnswer(BaseModel):
+    answer: str
+    sources: List[RAGSourceDocument]
+    total_sources: int
+    took: float                  # 响应耗时
+    generated_at: datetime
+```
+
+### 2.2 任务数据模型 (`schemas/tasks.py`)
+
+```python
+class TaskStatus(str, Enum):
+    PENDING = "pending"
+    QUEUED = "queued"
+    RUNNING = "running"
+    COMPLETED = "completed"
+    FAILED = "failed"
+    CANCELLED = "cancelled"
+
+class TaskType(str, Enum):
+    DOCUMENT_INDEX = "document_index"
+    DOCUMENT_REINDEX = "document_reindex"
+    BATCH_INDEX = "batch_index"
+    EMBEDDING_UPDATE = "embedding_update"
+
+class TaskResponse(BaseModel):
+    task_id: str
+    task_type: TaskType
+    status: TaskStatus
+    progress: int              # 0-100
+    created_at: datetime
+    started_at: Optional[datetime]
+    completed_at: Optional[datetime]
+    error_message: Optional[str]
+    result: Optional[Dict]
+```
+
+### 2.3 分析统计数据模型 (`schemas/analytics.py`)
+
+```python
+class TimeRange(str, Enum):
+    DAY = "day"
+    WEEK = "week"
+    MONTH = "month"
+    QUARTER = "quarter"
+    YEAR = "year"
+
+class DailyStats(BaseModel):
+    date: date
+    documents_added: int
+    documents_indexed: int
+    searches: int
+    rag_queries: int
+    api_requests: int
+    storage_used_bytes: int
+
+class AnalyticsOverviewResponse(BaseModel):
+    period_start: date
+    period_end: date
+    daily_stats: List[DailyStats]
+    category_stats: List[CategoryStats]
+    file_type_stats: List[FileTypeStats]
+    search_stats: SearchStats
+    rag_stats: RAGStats
+    storage_stats: StorageStats
+```
+
+---
+
+## 🔌 三、下一步开发计划 (v3.0.7)
+
+### v3.0.7 待办事项
+- [ ] **异步任务队列**：引入 Celery/RQ + Redis 实现真正的异步后台任务运行逻辑，对接 TaskRegistry
+- [ ] **文档流程整合**：整合文档上传、解析流程，对接 Agent 工作流进行文档端到端处理
+- [ ] **前后端联调**：打通端到端的交互链路，完成基础功能闭环
+- [ ] **知识图谱扩展**：实体关系抽取与存储基础结构对接
+
+---
+
+**文档结束**  
+*下一版本：v3.0.7 (异步任务队列与工作流集成)*

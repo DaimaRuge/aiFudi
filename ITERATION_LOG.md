@@ -141,6 +141,13 @@ skyone-shuge/
 - [x] 扩展 `core/config.py` 配置项，引入任务队列和数据分析等相关配置
 - [x] 更新 PRD (MVP_v3.0.6.md) 与架构文档 (ARCHITECTURE_v3.0.6.md)
 
+### v3.0.6 完成总结 (2026-03-16)
+- [x] API 层完整实现：10 个路由模块全部就位
+- [x] 新增路由：`rag`, `tasks`, `analytics`, `models`, `advanced_search`, `batch`
+- [x] 扩展 Schemas：`rag.py`, `tasks.py`, `analytics.py`, `ml.py`
+- [x] 配置增强：`core/config.py` 扩展任务队列、分析统计配置
+- [x] 更新 PRD 和架构文档至 v3.0.6
+
 ### v3.0.7 下一步计划
 - [ ] 引入 Celery/RQ 和 Redis 实现真正的异步后台任务运行逻辑，对接 TaskRegistry
 - [ ] 整合文档上传、解析流程，对接 Agent 工作流进行文档端到端处理
