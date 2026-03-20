@@ -155,9 +155,34 @@ skyone-shuge/
 - [x] 更新配置 `core/config.py` - 添加 Celery 专属配置项
 - [x] 已有 PRD (MVP_v3.0.7.md) 和架构文档 (ARCHITECTURE_v3.0.7.md)
 
-### v3.0.7 下一步计划 (v3.0.8)
-- [ ] 实现 WebSocket 连接管理器，对接通知任务
-- [ ] 创建 Agent RAG 工具类，将检索能力暴露给 Agent
-- [ ] 实现文档端到端处理的工作流编排
-- [ ] 添加 Celery Worker 启动脚本和 Docker 配置
+### v3.0.8 (2026-03-19) - 今日迭代完成
+- [x] 实现 WebSocket 连接管理器 (`core/connection_manager.py`)
+  - 用户级连接池管理，支持多设备同时连接
+  - 消息广播和单用户推送功能
+  - 自动清理断开的连接
+- [x] WebSocket API 端点 (`api/routers/websocket.py`)
+  - JWT Token 认证（URL 查询参数传递）
+  - 心跳检测 (ping/pong)
+  - 任务进度订阅功能
+- [x] Agent RAG 工具集成 (`agents/tools/rag_tool.py`)
+  - `RAGTool` 类封装检索能力
+  - `SearchTool` 简单搜索工具
+  - 支持过滤条件和置信度返回
+- [x] 文档工作流编排 (`workflows/document_workflow.py`)
+  - `DocumentWorkflowEngine` 状态机管理
+  - 端到端处理流程：UPLOADED → PARSING → CHUNKING → EMBEDDING → INDEXING → COMPLETED
+  - WebSocket 实时进度推送
+- [x] Celery Worker CLI (`cli/worker.py`)
+  - 启动 Worker 命令
+  - 查看 Worker 状态命令
+- [x] Docker 容器化配置
+  - `docker-compose.yml`: Redis + API + Worker + Flower 监控
+  - `Dockerfile`: Python 3.11  slim 基础镜像
+- [x] PRD (MVP_v3.0.8.md) 和架构文档 (ARCHITECTURE_v3.0.8.md) 已创建
+
+### v3.0.8 下一步计划 (v3.0.9)
+- [ ] 前端 WebSocket 客户端集成
+- [ ] 实现知识库问答 Agent 的完整工作流
+- [ ] 添加文档处理失败的断点续传功能
+- [ ] 部署文档完善（生产环境配置）
 
