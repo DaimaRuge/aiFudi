@@ -186,3 +186,25 @@ skyone-shuge/
 - [ ] 添加文档处理失败的断点续传功能
 - [ ] 部署文档完善（生产环境配置）
 
+### v3.0.9 (2026-03-21) - 今日迭代
+- [x] 创建 v3.0.9 PRD 文档 (`prd/MVP_v3.0.9.md`)
+  - 前端 WebSocket 客户端设计（React Hook、Zustand Store）
+  - 知识库问答 Agent 架构（意图分析、检索路由、答案生成）
+  - 断点续传机制设计（状态持久化、恢复逻辑、重试策略）
+  - 生产环境部署配置
+- [x] 创建 v3.0.9 架构文档 (`architecture/ARCHITECTURE_v3.0.9.md`)
+  - WebSocket 客户端连接生命周期与重连策略
+  - Knowledge QA Agent 处理流程
+  - 断点续传状态机与恢复执行器
+  - 生产环境部署拓扑与资源规划
+- [x] 更新 ITERATION_LOG.md 至 v3.0.9
+- [x] Git 提交文档更新
+
+### v3.0.9 下一步计划 (v3.0.10)
+- [ ] 实现前端 WebSocket Hook 和 Store
+- [ ] 实现 KnowledgeQAAgent 核心逻辑
+- [ ] 实现文档处理状态持久化
+- [ ] 完善生产环境部署脚本
+
+**更新时间**: 2026-03-21 23:00
+
