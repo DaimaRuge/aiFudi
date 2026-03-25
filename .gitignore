@@ -1,0 +1,33 @@
+# Sensitive files
+MEMORY.md
+.env
+.env.*
+*.env
+*.key
+*.pem
+
+# Credentials
+credentials/
+.secrets/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+node_modules/
+dist/
+build/
+
+# Backup files
+*.bak
+backups/
