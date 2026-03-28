@@ -239,3 +239,44 @@ skyone-shuge/
 
 ---
 
+
+### v3.0.11 (2026-03-28) - 今日迭代完成
+- [x] 用户注册与登录界面完整实现
+  - 登录页面: 邮箱/密码表单 + 表单验证 + 记住我功能
+  - 注册页面: 用户名/邮箱/密码 + 密码强度验证
+  - Auth Store: Zustand + 持久化 + Token 自动刷新
+  - 路由守卫: AuthGuard 组件 + 权限控制
+  - API 拦截器: 自动添加 Token + 401 自动刷新
+- [x] 向量搜索完整集成
+  - SemanticSearch 组件: 语义/关键词/混合搜索切换
+  - SearchResults 组件: 相似度可视化 + 关键词高亮
+  - HighlightText 组件: 智能文本高亮
+  - 搜索 API: 向量搜索 + 搜索建议 + 搜索历史
+  - Search Store: 语义缓存优化 (5分钟 TTL)
+- [x] 高级搜索 (过滤/排序)
+  - AdvancedSearchFilters 组件: 类型/日期/标签/文件夹过滤
+  - 后端过滤器链: DocumentTypeFilter + DateRangeFilter + TagFilter
+  - 排序策略: 相关度/创建时间/更新时间/标题/文件大小
+  - 高级搜索 API: /search/advanced 端点
+- [x] 批量操作
+  - BatchOperationToolbar 组件: 批量移动/标签/删除/导出
+  - useBatchSelection Hook: 选择管理 + 批量选择 + 范围选择
+  - 后端批量服务: BatchService 分批处理优化
+  - 批量操作 API: /batch/delete + /batch/move + /batch/tags
+- [x] 导入/导出功能
+  - DocumentImporter 组件: 多文件拖拽上传 + WebSocket 进度跟踪
+  - DocumentExporter 组件: 多格式导出 + ZIP 压缩选项
+  - 导入服务: 格式验证 + 临时文件 + Celery 异步处理
+  - 导出服务: JSON/CSV/TXT/ZIP 格式支持 + 流式导出
+- [x] 创建 PRD v3.0.11 (prd/MVP_v3.0.11.md)
+- [x] 创建架构文档 v3.0.11 (architecture/ARCHITECTURE_v3.0.11.md)
+- [x] 更新 ITERATION_LOG.md 至 v3.0.11
+
+### v3.0.11 下一步计划 (v3.0.12)
+- [ ] LibIndex One 同步服务
+- [ ] 项目级管理
+- [ ] 协作功能
+- [ ] 插件系统
+
+**更新时间**: 2026-03-28 23:10
+
