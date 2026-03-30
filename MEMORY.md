@@ -36,7 +36,7 @@
 
 ## GitHub Account Information
 - **Username**: DaimaRuge
-- **Access Token**: ***REDACTED*** (已永久记住)
+- **Access Token**: 已配置（见 ~/.git-credentials）
 - **Full Name**: Amogha Du
 - **Company**: Liminfini Technology Co., Ltd.
 - **Location**: Shanghai, China
@@ -68,7 +68,7 @@
 - **PPT Generation**: Automatically send email, sync GitHub, upload to Feishu
 - **Model Switching**: `/model` command may require session restart or gateway restart
 - **Gateway Restart**: Sometimes fails with code 1, but service may still be running
-- **GitHub Access**: GitHub token stored in zaiClaw私信: username=DaimaRuge, token=***REDACTED***
+- **GitHub Access**: username=DaimaRuge, token 已配置（见 ~/.git-credentials）
 - **学习工程管理**: 重要学习项目必须及时上传GitHub并建立进度跟踪系统
 
 ## Preferences
