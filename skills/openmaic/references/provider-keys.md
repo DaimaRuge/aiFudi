@@ -64,28 +64,7 @@ Why:
 - Matches the repo's current recommendation direction better than the default fallback
 - The `google:` prefix is important. Without a provider prefix, model parsing defaults to OpenAI.
 
-### 3. Better Cost-Effectiveness (Recommended for Chinese Users)
-
-Recommended when the user wants cost-effective high-quality models with good Chinese support.
-
-Set:
-
-```env
-DEEPSEEK_API_KEY=sk-...
-DEEPSEEK_BASE_URL=https://api.deepseek.com/v1
-DEEPSEEK_MODELS=deepseek-chat,deepseek-reasoner
-DEFAULT_MODEL=deepseek:deepseek-chat
-```
-
-Why:
-
-- Excellent cost-performance ratio
-- Native Chinese language support
-- Supports both chat and reasoning models
-- Competitive pricing compared to other providers
-- Good API reliability
-
-### 4. Existing Provider Reuse
+### 3. Existing Provider Reuse
 
 Use when the user already has OpenAI or another supported provider configured and wants to stick with it.
 
@@ -98,8 +77,6 @@ DEFAULT_MODEL=openai:gpt-4o-mini
 
 ```env
 DEEPSEEK_API_KEY=...
-DEEPSEEK_BASE_URL=https://api.deepseek.com/v1
-DEEPSEEK_MODELS=deepseek-chat,deepseek-reasoner
 DEFAULT_MODEL=deepseek:deepseek-chat
 ```
 
@@ -111,7 +88,6 @@ When recommending or showing `DEFAULT_MODEL`, always include the provider prefix
 - `anthropic:claude-3-5-haiku-20241022`
 - `openai:gpt-4o-mini`
 - `deepseek:deepseek-chat`
-- `deepseek:deepseek-reasoner`
 
 Do not recommend bare model IDs such as `gemini-3-flash-preview` by themselves, because OpenMAIC will otherwise parse them as OpenAI models.
 
@@ -168,45 +144,3 @@ Avoid as the first move:
 - Wait for the user to confirm they finished editing before continuing.
 - Do not request the literal key.
 - If provider/model/auth errors happen later, tell the user exactly which config entry to fix and wait for confirmation before retrying.
-
-## Search API Configuration
-
-OpenMAIC supports web search for classroom generation. It is recommended to configure Tavily API for the best experience:
-
-```env
-TAVILY_API_KEY=tvly-...
-```
-
-Why:
-- Built-in integration with OpenMAIC
-- Good for academic and research content
-- Supports citation generation
-
-Without web search, classroom generation will still work, but may not have access to the latest information.
-
-## Complete Recommended Configuration Example
-
-Here is a complete working configuration based on real-world deployment:
-
-```env
-# Primary LLM Provider
-DEEPSEEK_API_KEY=sk-e0a54ba5a281472ba78041f497453ea1
-DEEPSEEK_BASE_URL=https://api.deepseek.com/v1
-DEEPSEEK_MODELS=deepseek-chat,deepseek-reasoner
-
-# Secondary LLM Provider (optional)
-GOOGLE_API_KEY=AIzaSyDy9EgEBWOvqBdG_9vRbQTHBt-i0RYx8cw
-GOOGLE_MODELS=gemini-3-flash-preview,gemini-3.1-pro-preview
-
-# Web Search
-TAVILY_API_KEY=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
-
-# Default Model
-DEFAULT_MODEL=deepseek:deepseek-chat
-```
-
-This configuration provides:
-- Cost-effective primary model with good Chinese support
-- Backup model for diversity
-- Web search capabilities
-- Reasoning model support
