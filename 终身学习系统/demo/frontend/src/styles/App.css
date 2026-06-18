@@ -1,0 +1,333 @@
+/* 全局样式 */
+:root {
+  --primary-color: #1890ff;
+  --success-color: #52c41a;
+  --warning-color: #faad14;
+  --error-color: #ff4d4f;
+  --text-color: #333;
+  --bg-color: #f5f5f5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* 布局 */
+.app-layout {
+  min-height: 100vh;
+}
+
+.app-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.app-header .logo {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-header .user-info {
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.app-sider {
+  background: white;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.app-content {
+  padding: 24px;
+  background: var(--bg-color);
+  min-height: calc(100vh - 64px);
+}
+
+/* 页面卡片 */
+.page-card {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: var(--text-color);
+}
+
+/* 登录/注册页面 */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.auth-card {
+  width: 400px;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 32px;
+  color: #333;
+}
+
+.auth-title h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.auth-title p {
+  color: #666;
+  font-size: 14px;
+}
+
+/* 文档列表 */
+.document-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.document-card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.document-card:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(24, 144, 255, 0.15);
+}
+
+.document-card .title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.document-card .meta {
+  font-size: 12px;
+  color: #999;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 聊天界面 */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 140px);
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.chat-message {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.chat-message.user {
+  justify-content: flex-end;
+}
+
+.chat-message .bubble {
+  max-width: 70%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  line-height: 1.6;
+}
+
+.chat-message.user .bubble {
+  background: var(--primary-color);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-message.assistant .bubble {
+  background: #f0f0f0;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}
+
+.chat-input-area {
+  padding: 16px 24px;
+  border-top: 1px solid #e8e8e8;
+  background: #fafafa;
+}
+
+/* 知识图谱 */
+.graph-container {
+  width: 100%;
+  height: 600px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.graph-stats {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.stat-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  flex: 1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card .value {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.stat-card .label {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+/* 学习路径 */
+.learning-path {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.path-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.path-progress {
+  margin: 16px 0;
+}
+
+.unit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.unit-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background: #fafafa;
+  border-radius: 8px;
+  transition: all 0.3s;
+}
+
+.unit-item:hover {
+  background: #f0f0f0;
+}
+
+.unit-item.completed {
+  background: #f6ffed;
+  border-left: 4px solid var(--success-color);
+}
+
+.unit-info {
+  flex: 1;
+}
+
+.unit-info .title {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.unit-info .description {
+  font-size: 13px;
+  color: #666;
+}
+
+.unit-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #999;
+}
+
+/* 上传区域 */
+.upload-area {
+  border: 2px dashed #d9d9d9;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 24px;
+}
+
+.upload-area:hover {
+  border-color: var(--primary-color);
+  background: #f0f7ff;
+}
+
+.upload-area .icon {
+  font-size: 48px;
+  color: #999;
+  margin-bottom: 16px;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .app-content {
+    padding: 16px;
+  }
+
+  .document-list {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-message .bubble {
+    max-width: 85%;
+  }
+}
